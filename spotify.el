@@ -1,14 +1,19 @@
 ;;; spotify.el --- Control the spotify application from emacs
 
-;; Copyright (C) 2012-2013 R.W van 't Veer
+;; Copyright (C) 2012-2018 R.W van 't Veer
 ;; Copyright (C) 2013 Bjarte Johansen
 
 ;; Author: R.W. van 't Veer
 ;; Created: 18 Oct 2012
 ;; Keywords: convenience
-;; Version: 0.3.3
+;; Version: 0.3.4
 ;; URL: https://github.com/remvee/spotify-el
 ;; Package-Requires: ((cl-lib "0.5"))
+
+;; Contributors:
+;;   Bjarte Johansen
+;;   Syohei YOSHIDA
+;;   Federico T
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License
@@ -43,7 +48,8 @@
 
 (eval-and-compile
   (defun spotify-p-dbus ()
-    (string= "gnu/linux" system-type)))
+    (and (string= "gnu/linux" system-type)
+	 (featurep 'dbusbind))))
 
 (defun spotify-p-osa ()
   (string= "darwin" system-type))
@@ -175,6 +181,7 @@ to the mini buffer."
 ;;;###autoload (autoload 'spotify-previous "spotify" "Call Previous on spotify player." t)
 (spotify-defun-player-command "Previous")
 
+;;;###autoload (autoload 'spotify-current "spotify" "Return the current song playing in spotify application." t)
 ;;;###autoload (autoload 'spotify-quit "spotify" "Quit the spotify application." t)
 ;;;###autoload (autoload 'spotify-enable-song-notifications "spotify" "Enable notifications for the currently playing song in spotify application." t)
 ;;;###autoload (autoload 'spotify-disable-song-notifications "spotify" "Disable notifications for the currently playing song in spotify application." t)
